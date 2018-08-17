@@ -4,7 +4,6 @@ import random
 import re
 from time import sleep
 
-import arrow as arrow
 import emoji
 import requests
 import telegram
