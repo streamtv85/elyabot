@@ -72,7 +72,7 @@ class StocksExchangeWatcher:
         # get data from https://app.stocks.exchange/api2/ticker
         data = get_data_from_api("https://app.stocks.exchange/api2/", "ticker")
         print(data)
-        # find ELYA_BTC
+        # find "market_name": ELYA_BTC
         # get "ask","bid","last","lastDayAgo","vol" and put them to class properties
         # put current timestamp to self.timestamp
 
@@ -80,6 +80,7 @@ class StocksExchangeWatcher:
 
 
 if __name__ == "__main__":
-    print("okay")
-    pass
+    el = StocksExchangeWatcher()
+    el.update_prices()
+    print(el.price)
 # bitfin_watcher = ExchangeWatcher('bitfinex', 'BTC/USDT')
