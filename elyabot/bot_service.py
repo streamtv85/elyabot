@@ -8,15 +8,13 @@ import sys
 import time
 import emoji
 from logging.handlers import TimedRotatingFileHandler
-from shutil import make_archive
 from threading import Thread
 from telegram import MessageEntity, ParseMode
 from telegram.ext import MessageHandler, Filters, Updater, CommandHandler
 from telegram.error import (TelegramError, Unauthorized, BadRequest,
                             TimedOut, ChatMigrated, NetworkError)
 
-from elyabot import events, exchange, ExchangeWatcher, BitfinexBookWatcher, DataHistoryManager, \
-    FundingWatcher
+from elyabot import events, exchange, ExchangeWatcher
 from elyabot.configmanager import config
 
 cwd = os.path.dirname(os.path.abspath(__file__))

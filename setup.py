@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(name='elyabot',
       version='0.5',
-      description='Telegram bot for crypto analytics',
-      url='https://github.com/streamtv85/CoinSneaker',
+      description='Telegram bot for ELYA community',
+      url='https://github.com/streamtv85/elyabot',
       author='streamtv85',
       author_email='streamtv85@gmail.com',
       license='MIT',
@@ -12,9 +12,7 @@ setup(name='elyabot',
           'emoji',
           'requests',
           'python-telegram-bot',
-          'matplotlib',
           'numpy',
-          'ccxt',
-          'btfxwss', 'arrow', 'bitmex', 'pandas'
+          'ccxt'
       ],
       zip_safe=False)

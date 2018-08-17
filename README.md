@@ -1,5 +1,5 @@
-# CoinSneaker
-Telegram bot to fetch different data from crypto exchanges
+# Elyabot
+Telegram bot to fetch coin price data from crypto exchanges
 
 Written on python
 
@@ -9,7 +9,7 @@ Tested OS: Ubuntu 16.04 LTS
 
 In commandline, run:
 ```
-curl -L https://github.com/streamtv85/CoinSneaker/raw/master/install.sh | bash
+curl -L https://github.com/streamtv85/elyabot/raw/master/install.sh | bash
 ```
 
 #### Edit config file:
@@ -78,7 +78,7 @@ either:
 ```
 or (better)
 ```
-curl -L https://github.com/streamtv85/CoinSneaker/raw/master/update.sh | bash
+curl -L https://github.com/streamtv85/elyabot/raw/master/update.sh | bash
 ```
 
 OR you can update the bot with Telegram command /update

@@ -54,14 +54,32 @@ class ExchangeWatcher:
 class StocksExchangeWatcher:
     def __init__(self):
         self.price = 0
-        self.timestamp = datetime.datetime.timestamp()
+        self.ask = 0
+        self.bid = 0
+        self.lastDayAgo = 0
+        self.vol = 0
+        self.timestamp = 0
         pass
 
     def get_price(self):
+        pass
+        # get current timestamp
+        # check if difference between current and self.timestamp is more than 10 sec
+        # if yes - update_prices() and return self.price
+        # if no - just return self.price
+
+    def update_prices(self):
+        # get data from https://app.stocks.exchange/api2/ticker
+        data = get_data_from_api("https://app.stocks.exchange/api2/", "ticker")
+        print(data)
+        # find ELYA_BTC
+        # get "ask","bid","last","lastDayAgo","vol" and put them to class properties
+        # put current timestamp to self.timestamp
 
         pass
 
 
 if __name__ == "__main__":
+    print("okay")
     pass
 # bitfin_watcher = ExchangeWatcher('bitfinex', 'BTC/USDT')
