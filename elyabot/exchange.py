@@ -3,7 +3,8 @@ import ccxt
 import requests
 import logging
 import numpy as np
-import pandas as pd
+
+# import pandas as pd
 
 logger = logging.getLogger('bot-service.exchange')
 
@@ -62,25 +63,39 @@ class StocksExchangeWatcher:
         pass
 
     def get_price(self):
-        pass
         # get current timestamp
         # check if difference between current and self.timestamp is more than 10 sec
         # if yes - update_prices() and return self.price
         # if no - just return self.price
+        difference = datetime.datetime.now().timestamp() - self.timestamp
+        if difference >= 10:
+            el.update_prices()
+        return self
+    pass
+
 
     def update_prices(self):
         # get data from https://app.stocks.exchange/api2/ticker
         data = get_data_from_api("https://app.stocks.exchange/api2/", "ticker")
-        print(data)
+        # print(data)
         # find "market_name": ELYA_BTC
         # get "ask","bid","last","lastDayAgo","vol" and put them to class properties
         # put current timestamp to self.timestamp
 
-        pass
-
+        for attrs in data:
+            if attrs['market_name'] == 'ELYA_BTC':
+                self.ask = attrs['ask']
+                self.bid = attrs['bid']
+                self.lastDayAgo = attrs['lastDayAgo']
+                self.vol = attrs['vol']
+                self.timestamp = datetime.datetime.now().timestamp()
+                print(self.bid)
+                break
+    pass
 
 if __name__ == "__main__":
     el = StocksExchangeWatcher()
-    el.update_prices()
+
+    el.get_price()
     print(el.price)
 # bitfin_watcher = ExchangeWatcher('bitfinex', 'BTC/USDT')
