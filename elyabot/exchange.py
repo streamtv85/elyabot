@@ -54,7 +54,7 @@ class ExchangeWatcher:
 class StocksExchangeWatcher:
     def __init__(self):
         self.price = 0
-        self.ask = 0
+        self.ask = 0  # something
         self.bid = 0
         self.lastDayAgo = 0
         self.vol = 0
