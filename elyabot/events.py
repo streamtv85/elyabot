@@ -25,11 +25,13 @@ def welcome(bot, update):
     logger.debug("effective_message: {}".format(update.effective_message))
     new_members = update.effective_message['new_chat_members']
     new_members_text = ", ".join([item.first_name for item in new_members])
+    if new_members_text:
+        new_members_text += ", "
     logger.debug("new members: {}".format(new_members_text))
     event_info("Welcoming new member(s)", update, new_members_text)
     # logger.debug("effective_user: {}".format(update.effective_user))
     sleep(3)
-    message = """{}, Welcome to ELYA community!
+    message = """{}Welcome to ELYA community!
 Please kindly read the pinned message above for more info on the coin.
 If you have any questions, don't hesitate to ask! All the members of the community are happy to answer every question.
 If you want to become a distributor of ELYA sim and ELYA pay worldwide please PM @elyacoin""".format(new_members_text)
