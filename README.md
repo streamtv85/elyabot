@@ -97,4 +97,6 @@ And save your changes
 
 ## Telegram commands:
 
-- price - Get current ELYA/USD prices
+```
+price - Get current ELYA/BTC prices
+```

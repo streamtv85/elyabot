@@ -26,6 +26,7 @@ def welcome(bot, update):
     new_members = update.effective_message['new_chat_members']
     new_members_text = ", ".join([item.first_name for item in new_members])
     logger.debug("new members: {}".format(new_members_text))
+    event_info("Welcoming new member(s)", update, new_members_text)
     # logger.debug("effective_user: {}".format(update.effective_user))
     sleep(3)
     message = """{}, Welcome to ELYA community!
