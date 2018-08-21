@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 
-import glob
 import logging
-import math
 import os
 import sys
-import time
 import emoji
 from logging.handlers import TimedRotatingFileHandler
 from threading import Thread
-from telegram import MessageEntity, ParseMode
+from telegram import ParseMode
 from telegram.ext import MessageHandler, Filters, Updater, CommandHandler
 from telegram.error import (TelegramError, Unauthorized, BadRequest,
                             TimedOut, ChatMigrated, NetworkError)
 
-from elyabot import events, exchange, ExchangeWatcher
+from elyabot import events, StocksExchangeWatcher
 from elyabot.configmanager import config
 
 cwd = os.path.dirname(os.path.abspath(__file__))
@@ -42,15 +39,16 @@ logger.addHandler(fh)
 logger.addHandler(fhdebug)
 logger.addHandler(ch)
 
-exmo_watcher = ExchangeWatcher('exmo', 'BTC/USD')
-bitfin_watcher = ExchangeWatcher('bitfinex', 'BTC/USD')
+# exmo_watcher = ExchangeWatcher('exmo', 'BTC/USD')
+# bitfin_watcher = ExchangeWatcher('bitfinex', 'BTC/USD')
+el = StocksExchangeWatcher()
 
 
 def send_prices(bot, update):
-    price = 0.00000005
-    message = "<b>ELYA</b> price: {0:.8f} BTC".format(
-        price
-    )
+    global el
+    price = el.get_price()
+    # logger.debug("got price: {}".format(price))
+    message = "<b>ELYA</b> price: {0} BTC".format(price)
     events.event_info("Price request", update, message)
     bot.send_message(chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.HTML)
 
@@ -68,6 +66,9 @@ def add_command_handlers(disp):
 
     prices_handler = CommandHandler('price', send_prices)
     disp.add_handler(prices_handler)
+
+    w_handler = CommandHandler('welcome', events.welcome)
+    disp.add_handler(w_handler)
 
     # should be added as the LAST handler
     unknown_handler = MessageHandler(Filters.command, events.unknown)
@@ -102,10 +103,11 @@ def error_callback(bot, update, error):
 def main():
     logger.info("Current folder is: " + cwd)
     updater = Updater(token=config.get('token'))
-    job_queue = updater.job_queue
     logger.info("Checking if bot is okay")
     logger.info(updater.bot.get_me())
     dispatcher = updater.dispatcher
+    el.update_prices()
+    logger.info("current price: {}".format(el.price))
 
     def stop_and_restart():
         """Gracefully stop the Updater and replace the current process with a new one"""

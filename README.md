@@ -14,7 +14,7 @@ curl -L https://github.com/streamtv85/elyabot/raw/master/install.sh | bash
 
 #### Edit config file:
 
-Go to `/usr/local/bin/bot-service/coinsneaker/config.ini`
+Go to `/usr/local/bin/bot-service/elyabot/config.ini`
 and put your bot's token at `token=` line
 
 ## How to run:
@@ -97,6 +97,4 @@ And save your changes
 
 ## Telegram commands:
 
-- subscribe - Receive notifications when prices reach certain levels
-- unsubscribe - Stop receiving notifications
-- price - Get current BTC/USD prices
+- price - Get current ELYA/USD prices

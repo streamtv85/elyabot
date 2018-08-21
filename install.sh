@@ -14,7 +14,7 @@ pip3 install virtualenv
 
 echo Pulling the code from Git
 cd ~
-[ -d $HOME_DIR ] || git clone https://github.com/streamtv85/CoinSneaker.git
+[ -d $HOME_DIR ] || git clone https://github.com/streamtv85/elyabot.git
 cd $HOME_DIR && git pull
 
 sudo mkdir -p $SERVICE_DIR
@@ -22,7 +22,7 @@ sudo chown $USER:$USER $SERVICE_DIR
 \cp -rfv $HOME_DIR/* $SERVICE_DIR
 cd $SERVICE_DIR
 
-sudo chmod 755 coinsneaker/bot_service.py
+sudo chmod 755 elyabot/bot_service.py
 sudo chmod 755 ./run.sh
 sudo chmod 755 ./update.sh
 
@@ -34,7 +34,7 @@ echo Updating python modules
 pip install -e . || echo failure installing packages
 #pipenv install requests python-telegram-bot emoji
 
-CONFIG_FILE=$SERVICE_DIR/coinsneaker/$CONFIG_FILE
+CONFIG_FILE=$SERVICE_DIR/elyabot/$CONFIG_FILE
 if [ ! -f $CONFIG_FILE ]
 then
     echo Generating sample config file
@@ -42,8 +42,4 @@ then
     echo token=YOURTOKEN_HERE >> $CONFIG_FILE
     echo logMaxAge=14 >> $CONFIG_FILE
     echo logLevel=INFO >> $CONFIG_FILE
-    echo exchangeDataAge=7 >> $CONFIG_FILE
-    echo csvFolder=data >> $CONFIG_FILE
-    echo csvPrefix=exchange-data >> $CONFIG_FILE
-    echo dbFolder=db >> $CONFIG_FILE
 fi

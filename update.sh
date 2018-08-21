@@ -2,14 +2,14 @@
 
 
 SERVICE_DIR=/usr/local/bin/bot-service
-HOME_DIR=~/CoinSneaker
+HOME_DIR=~/elyabot
 
 echo Killing bot instance
 sudo pkill screen && echo Killed the bot || echo Nothing to kill
 
 echo Updating the code from Git
 cd ~
-[ -d $HOME_DIR ] || git clone https://github.com/streamtv85/CoinSneaker.git
+[ -d $HOME_DIR ] || git clone https://github.com/streamtv85/elyabot.git
 cd $HOME_DIR && git pull
 
 [ -d $HOME_DIR ] || mkdir -p $SERVICE_DIR

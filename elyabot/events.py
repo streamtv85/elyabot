@@ -1,13 +1,6 @@
-import html
-import os
-import random
-import re
 from time import sleep
 
 import emoji
-import requests
-import telegram
-from urllib.parse import urlencode
 import logging
 
 logger = logging.getLogger('bot-service.events')
@@ -29,7 +22,16 @@ def unknown(bot, update):
 
 def welcome(bot, update):
     debug_info(bot, update)
-    message = "Welcome to the chat!"
+    logger.debug("effective_message: {}".format(update.effective_message))
+    new_members = update.effective_message['new_chat_members']
+    new_members_text = ", ".join([item.first_name for item in new_members])
+    logger.debug("new members: {}".format(new_members_text))
+    # logger.debug("effective_user: {}".format(update.effective_user))
+    sleep(3)
+    message = """{}, Welcome to ELYA community!
+Please kindly read the pinned message above for more info on the coin.
+If you have any questions, don't hesitate to ask! All the members of the community are happy to answer every question.
+If you want to become a distributor of ELYA sim and ELYA pay worldwide please PM @elyacoin""".format(new_members_text)
     bot.send_message(chat_id=update.message.chat_id, text=message)
 
 
@@ -37,8 +39,8 @@ def debug_info(bot, update):
     logger.debug(' > received message from chat id: ' + str(update.message.chat_id))
     logger.debug(' > from user: ' + str(update.message.from_user))
     logger.debug(' > message text: ' + str(update.message.text))
-    logger.debug(
-        ' > chat member info: ' + str(bot.get_chat_member(update.message.chat_id, update.message.from_user.id)))
+    # logger.debug(
+    #     ' > chat member info: ' + str(bot.get_chat_member(update.message.chat_id, update.message.from_user.id)))
 
 
 def event_info(prefix, update, message):
@@ -46,8 +48,12 @@ def event_info(prefix, update, message):
         suffix = "Response:\n"
     else:
         suffix = ""
+
+    if update.message.from_user.username:
+        from_user = update.message.from_user.username
+    else:
+        from_user = update.message.from_user.first_name
     logger.info(
-        prefix + ": chat id {0!s}, user {1} ({2}). ".format(
-            update.message.chat_id, update.message.from_user.username if update.message.from_user.username else (
-                    update.message.from_user.first_name + update.message.from_user.last_name),
+        prefix + ": chat id {0!s}, user {1!s} ({2}). ".format(
+            update.message.chat_id, from_user,
             update.message.from_user.id) + suffix + message)
